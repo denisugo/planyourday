@@ -1,28 +1,66 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { cardElement } from "../../config/colors";
+import Button from "../button/Button";
+import DeleteButton from "../delete-button/DeleteButton";
 
 const StyledElement = styled.div`
-  max-width: 100%;
   min-width: 250px;
   width: fit-content;
-  height: 300px;
-  background-color: gray;
+  min-height: 300px;
+  height: fit-content;
+  background-color: ${cardElement.background};
+  box-shadow: 0 0 5px ${cardElement.shadow};
   margin: 10px 10px 10px 30px;
   border-radius: 10px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: visible;
 
   &::before {
     content: "";
-    display: block;
-    width: 0;
-    height: 0;
-    border-top: 12px solid transparent;
-    border-bottom: 12px solid transparent;
-    border-right: 12px solid gray;
     position: absolute;
+    display: block;
     top: 30px;
     left: -12px;
-    transform: translate(0, -50%);
+    width: 30px;
+    height: 30px;
+    background: #999;
+    transform: rotate(45deg) translate(-25%, -50%);
+    box-shadow: 0 0 5px ${cardElement.shadow};
+    background-color: ${cardElement.background};
+    z-index: -1;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 30px;
+    left: -12px;
+    width: 30px;
+    height: 30px;
+    background: #999;
+    transform: rotate(45deg) translate(-25%, -50%);
+    background-color: ${cardElement.background};
+  }
+
+  h2 {
+    align-self: center;
+    filter: drop-shadow(0 0 10px #666);
+    padding: 7px 20px;
+    z-index: 1;
+  }
+
+  h2,
+  h3 {
+    color: ${cardElement.heading};
+  }
+
+  p {
+    color: ${cardElement.text};
+    padding: 7px 10px;
+    z-index: 1;
   }
 `;
 
@@ -35,6 +73,8 @@ const StyledCircle = styled.div`
   top: 30px;
   left: -45px;
   transform: translate(0, -50%);
+  background-color: ${cardElement.circleBackground};
+  box-shadow: 0 0 5px ${cardElement.shadow};
 `;
 
 const StyledDate = styled.div`
@@ -46,35 +86,85 @@ const StyledDate = styled.div`
   transform: translate(0, -50%);
 `;
 
-export interface IElement {
-  id?: number;
+export interface IItem {
+  id: number;
   title: string;
   text: string;
-  date?: string | undefined;
-  callback?: (id: number) => void;
+  date: string;
+}
+export interface IElementInternal extends IItem {
+  onRemove: (id: number) => void;
+  onEdit: (item: IItem) => void;
 }
 
-function ElementDesktop({ title, text, date, id, callback }: IElement) {
+function ElementDesktop({
+  title,
+  text,
+  date,
+  id,
+  onRemove,
+  onEdit,
+}: IElementInternal) {
   const [visible, setVisible] = useState(false);
-  const handleOver = () => {
+  const [visibleButtons, setVisibleButtons] = useState(false);
+  const handleEditBlocksVisible = () => {
     setVisible(true);
   };
-  const handleLeave = () => {
+  const handleLConfirm = () => {
+    setVisibleButtons(false);
     setVisible(false);
+    onEdit({ id, text, title, date });
   };
 
   return (
-    <StyledElement onMouseOver={handleOver} onMouseLeave={handleLeave}>
+    <StyledElement
+      //   onMouseEnter={() => setVisibleButtons(true)}
+      onMouseOver={() => setVisibleButtons(true)}
+      onMouseLeave={() => setVisibleButtons(false)}
+    >
       <StyledCircle />
       <StyledDate>
         <h3>{date}</h3>
       </StyledDate>
-      <h2>{title}</h2>
-      <p>{text}</p>
+      {visibleButtons && <DeleteButton callback={() => onRemove(id)} />}
+      {!visible && (
+        <>
+          <h2>{title}</h2>
+          <p>{text}</p>
+          {visibleButtons && (
+            <Button
+              title="Edit"
+              usedFor="util"
+              callback={handleEditBlocksVisible}
+            />
+          )}
+        </>
+      )}
       {visible && (
         <>
-          <button onClick={() => console.log(id)}>delete</button>
-          <button>edit</button>
+          <textarea
+            name="Title"
+            placeholder={title}
+            style={{
+              fontSize: 17,
+              height: "100%",
+              marginTop: 54,
+              width: "fit-content",
+            }}
+          />
+          <span
+            role="textbox"
+            contentEditable
+            style={{
+              border: "1px solid #ccc",
+              fontSize: 17,
+
+              padding: "1px 6px",
+            }}
+          >
+            99
+          </span>
+          <Button title="Confirm" usedFor="util" callback={handleLConfirm} />
         </>
       )}
     </StyledElement>

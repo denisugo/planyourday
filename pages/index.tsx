@@ -12,7 +12,6 @@ const Home: NextPage<{ isMobile: boolean }> = ({ isMobile }) => {
       <AppHeader isMobile={isMobile} />
       <main>
         <Timeline isMobile={isMobile} />
-        <button>Save your timeline as screenshot</button>
         <div>Google ads vertical banners</div>
         <div>video</div>
       </main>
