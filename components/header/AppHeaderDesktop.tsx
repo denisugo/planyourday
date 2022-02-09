@@ -2,14 +2,29 @@ import styled from "styled-components";
 import { BiTimeFive } from "react-icons/bi";
 
 import { global, header } from "../../config/colors";
+import { desktopDemensions } from "../../config/demensions";
 
 const StyledHeader = styled.header`
   width: 100%;
+  min-width: ${desktopDemensions.minScreenWidth};
   background-color: ${header.background};
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow-x: hidden;
+  position: relative;
+
+  & :after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    bottom: 0;
+    transform: translate(0, 50%);
+    z-index: 1;
+    display: block;
+    background: ${global.background};
+  }
 
   h1 {
     margin: 0;
@@ -19,9 +34,13 @@ const StyledHeader = styled.header`
     align-self: center;
     display: flex;
     align-items: center;
+    justify-content: center;
 
     span {
       font-size: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       svg {
         filter: drop-shadow(0 2px 3px ${header.shadow});
       }
@@ -29,12 +48,14 @@ const StyledHeader = styled.header`
   }
 
   & > svg {
+    align-self: center;
     width: 101%;
     margin: 0;
     padding: 0;
     display: block;
     filter: url(#shadow);
   }
+
   p {
     padding: 15px;
     align-self: center;

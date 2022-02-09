@@ -4,6 +4,7 @@ import { toPng } from "html-to-image";
 import AppTimeline from "../timeline-container/ContainerDesktop";
 import { IItem } from "../timeline-element/ElementDesktop";
 import Button from "../button/Button";
+import { desktopDemensions } from "../../config/demensions";
 
 // ? This function will create a download link and click it
 const download = (image: string) => {
@@ -26,7 +27,7 @@ const takeScreenshot = async (objectReference: HTMLElement | null) => {
 
 // ? This function will sort all items according to their date
 const sortItems = (items: IItem[]): IItem[] => {
-  return items.sort((a, b) => {
+  return items.sort(function (a, b): number {
     return Number(new Date(a.date)) - Number(new Date(b.date));
   });
 };
@@ -34,28 +35,28 @@ const sortItems = (items: IItem[]): IItem[] => {
 function TimelineDesktop() {
   const [items, setItems] = useState<IItem[]>([
     {
-      id: 4,
-      title: "Example title #4",
-      text: "text text text",
-      date: "14 May 1998",
-    },
-    {
       id: 1,
       title: "Example title #1",
       text: "Here could be some text",
       date: "13 May 1997",
     },
     {
-      id: 2,
+      id: 3,
       title: "Example title #2",
-      text: "text text text",
-      date: "1 Oct 2000",
+      text: "Text maecenas consectetur dolor a lectus commodo egestas. Quisque nec dolor ex. Nunc posuere posuere justo ut auctor. Nam consequat erat id augue tristique hendrerit. Donec non tortor vitae turpis posuere eleifend. Sed rutrum sodales sem sed elementum. Nulla molestie suscipit turpis eu finibus. In tincidunt non risus ac tempus.",
+      date: "13 May 1997 11:30",
     },
     {
-      id: 3,
+      id: 4,
       title: "Example title #3",
-      text: "text text text text text text text text texttext text text text text texttext text text text text texttext text text text text texttext text text text text texttext text text text text texttext text text text text texttext text text text text texttext text text text text texttext text texttext text texttext text texttext text texttext text texttext text texttext text texttext text texttext text texttext text texttext text texttext text texttext text texttext text texttext text texttext text texttext text texttext text text",
-      date: "11:30 13 May 1997",
+      text: "Praesent consequat, elit vitae accumsan commodo, nisi neque congue orci, text",
+      date: "14 May 1998",
+    },
+    {
+      id: 2,
+      title: "Example title #4",
+      text: "Etiam sed odio quis tortor fermentum pharetratext.",
+      date: "1 Oct 2000",
     },
   ]);
 
@@ -81,9 +82,10 @@ function TimelineDesktop() {
       <div
         ref={timelineRef}
         style={{
-          width: "100%",
+          width: desktopDemensions.minScreenWidth,
           height: "auto",
           padding: "10px 0",
+          overflow: "scroll",
         }}
       >
         <AppTimeline

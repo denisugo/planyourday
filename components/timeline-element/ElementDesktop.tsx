@@ -8,7 +8,7 @@ import TextInput from "../text-input/TextInputDesktop";
 const StyledElement = styled.div`
   min-width: 250px;
   width: fit-content;
-  max-width: 50%;
+  max-width: 100%;
   min-height: 250px;
   height: fit-content;
 
@@ -65,6 +65,8 @@ const StyledElement = styled.div`
     filter: drop-shadow(0 0 10px #666);
     padding: 7px 20px;
     z-index: 1;
+    width: 100%;
+    text-align: center;
     word-wrap: break-word;
     word-break: break-word;
   }
