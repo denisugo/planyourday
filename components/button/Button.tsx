@@ -49,7 +49,7 @@ interface IButton extends IProps {
 
 function Button({ callback, title, usedFor }: IButton) {
   return (
-    <StyledButton onClick={callback} usedFor={usedFor}>
+    <StyledButton title={title} onClick={callback} usedFor={usedFor}>
       {title}
     </StyledButton>
   );

@@ -3,16 +3,20 @@ import styled from "styled-components";
 import { cardElement } from "../../config/colors";
 import Button from "../button/Button";
 import DeleteButton from "../delete-button/DeleteButton";
+import TextInput from "../text-input/TextInputDesktop";
 
 const StyledElement = styled.div`
   min-width: 250px;
   width: fit-content;
-  min-height: 300px;
+  max-width: 50%;
+  min-height: 250px;
   height: fit-content;
+
   background-color: ${cardElement.background};
   box-shadow: 0 0 5px ${cardElement.shadow};
   margin: 10px 10px 10px 30px;
   border-radius: 10px;
+
   position: relative;
   display: flex;
   flex-direction: column;
@@ -45,11 +49,24 @@ const StyledElement = styled.div`
     background-color: ${cardElement.background};
   }
 
+  button[title="delete"] {
+    position: absolute;
+    top: 30px;
+    left: -45px;
+    transform: translate(-25%, -75%);
+  }
+  button[title="Edit"],
+  button[title="Confirm"] {
+    margin: 20px;
+  }
+
   h2 {
     align-self: center;
     filter: drop-shadow(0 0 10px #666);
     padding: 7px 20px;
     z-index: 1;
+    word-wrap: break-word;
+    word-break: break-word;
   }
 
   h2,
@@ -61,6 +78,8 @@ const StyledElement = styled.div`
     color: ${cardElement.text};
     padding: 7px 10px;
     z-index: 1;
+    word-wrap: break-word;
+    word-break: break-word;
   }
 `;
 
@@ -68,7 +87,6 @@ const StyledCircle = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 15px;
-  background-color: blue;
   position: absolute;
   top: 30px;
   left: -45px;
@@ -84,7 +102,21 @@ const StyledDate = styled.div`
   top: 30px;
   left: -130px;
   transform: translate(0, -50%);
+  display: flex;
 `;
+// ? This is util function that converts array of texts
+// ? Into single line string value
+const multilineToSingleLine = (
+  nodes: NodeListOf<ChildNode>,
+  child: number = 0
+): string => {
+  if (!nodes[child]) return "";
+
+  const value = String(nodes[child].textContent);
+
+  if (value === "null") return multilineToSingleLine(nodes, child + 1);
+  return value + " " + multilineToSingleLine(nodes, child + 1);
+};
 
 export interface IItem {
   id: number;
@@ -107,26 +139,39 @@ function ElementDesktop({
 }: IElementInternal) {
   const [visible, setVisible] = useState(false);
   const [visibleButtons, setVisibleButtons] = useState(false);
+  const titleRef = useRef<HTMLSpanElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
+  const dateRef = useRef<HTMLSpanElement>(null);
+
   const handleEditBlocksVisible = () => {
     setVisible(true);
   };
+
   const handleLConfirm = () => {
     setVisibleButtons(false);
     setVisible(false);
-    onEdit({ id, text, title, date });
+    onEdit({
+      id,
+      text: multilineToSingleLine(textRef.current!.childNodes),
+      title: multilineToSingleLine(titleRef.current!.childNodes),
+      date: multilineToSingleLine(dateRef.current!.childNodes),
+    });
   };
 
   return (
     <StyledElement
-      //   onMouseEnter={() => setVisibleButtons(true)}
       onMouseOver={() => setVisibleButtons(true)}
       onMouseLeave={() => setVisibleButtons(false)}
     >
       <StyledCircle />
+      {(visibleButtons || visible) && (
+        <DeleteButton callback={() => onRemove(id)} />
+      )}
       <StyledDate>
-        <h3>{date}</h3>
+        {visible && <TextInput ref={dateRef} value={date} usedFor="date" />}
+
+        {!visible && <h3>{date}</h3>}
       </StyledDate>
-      {visibleButtons && <DeleteButton callback={() => onRemove(id)} />}
       {!visible && (
         <>
           <h2>{title}</h2>
@@ -142,28 +187,8 @@ function ElementDesktop({
       )}
       {visible && (
         <>
-          <textarea
-            name="Title"
-            placeholder={title}
-            style={{
-              fontSize: 17,
-              height: "100%",
-              marginTop: 54,
-              width: "fit-content",
-            }}
-          />
-          <span
-            role="textbox"
-            contentEditable
-            style={{
-              border: "1px solid #ccc",
-              fontSize: 17,
-
-              padding: "1px 6px",
-            }}
-          >
-            99
-          </span>
+          <TextInput ref={titleRef} value={title} usedFor="title" />
+          <TextInput ref={textRef} value={text} usedFor="text" />
           <Button title="Confirm" usedFor="util" callback={handleLConfirm} />
         </>
       )}

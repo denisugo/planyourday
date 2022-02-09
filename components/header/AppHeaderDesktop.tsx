@@ -9,6 +9,7 @@ const StyledHeader = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow-x: hidden;
 
   h1 {
     margin: 0;
@@ -27,7 +28,8 @@ const StyledHeader = styled.header`
     }
   }
 
-  svg {
+  & > svg {
+    width: 101%;
     margin: 0;
     padding: 0;
     display: block;
@@ -57,7 +59,7 @@ function AppHeaderDesktop() {
         <q>Let our advance worrying become advance thinking and planning.</q>
         <span> - Winston Churchill</span>
       </p>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 310">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1439 319">
         <filter id="shadow" colorInterpolationFilters="sRGB">
           <feOffset dx="0" dy="2" />
 

@@ -21,25 +21,67 @@ describe("Timeline", () => {
     expect(titles.length).toBe(3);
   });
 
-  //   it("should update title", async () => {
-  //     fireEvent.mouseEnter(screen.getByText(/title #3/i));
+  it("should update title", async () => {
+    fireEvent.mouseEnter(screen.getByText(/title #3/i));
 
-  //     const editButton = await screen.findByRole("button", { name: /edit/i });
+    const editButton = await screen.findByRole("button", { name: /edit/i });
 
-  //     fireEvent.click(editButton);
+    fireEvent.click(editButton);
 
-  //     const titleInput = await screen.findByRole("textbox", { name: /title/i });
+    const titleInput = await screen.findByRole("textbox", { name: /title/i });
 
-  //     fireEvent.change(titleInput, {
-  //       target: { value: "New Title" },
-  //     });
+    fireEvent.change(titleInput, {
+      target: { innerHTML: "New Title" },
+    });
 
-  //     const confirmButton = await screen.findByRole("button", {
-  //       name: /confirm/i,
-  //     });
+    const confirmButton = await screen.findByRole("button", {
+      name: /confirm/i,
+    });
 
-  //     fireEvent.click(confirmButton);
+    fireEvent.click(confirmButton);
 
-  //     await screen.findByText(/New Title/i);
-  //   });
+    await screen.findByText(/New Title/i);
+  });
+  it("should update text", async () => {
+    fireEvent.mouseEnter(screen.getByText(/title #3/i));
+
+    const editButton = await screen.findByRole("button", { name: /edit/i });
+
+    fireEvent.click(editButton);
+
+    const titleInput = await screen.findByRole("textbox", { name: /text/i });
+
+    fireEvent.change(titleInput, {
+      target: { innerHTML: "New Text after alll" },
+    });
+
+    const confirmButton = await screen.findByRole("button", {
+      name: /confirm/i,
+    });
+
+    fireEvent.click(confirmButton);
+
+    await screen.findByText(/New Text after alll/i);
+  });
+  it("should update date", async () => {
+    fireEvent.mouseEnter(screen.getByText(/title #3/i));
+
+    const editButton = await screen.findByRole("button", { name: /edit/i });
+
+    fireEvent.click(editButton);
+
+    const titleInput = await screen.findByRole("textbox", { name: /date/i });
+
+    fireEvent.change(titleInput, {
+      target: { innerHTML: "13 Nov 1998" },
+    });
+
+    const confirmButton = await screen.findByRole("button", {
+      name: /confirm/i,
+    });
+
+    fireEvent.click(confirmButton);
+
+    await screen.findByText(/13 Nov 1998/i);
+  });
 });
