@@ -5,6 +5,7 @@ import Button from "../button/Button";
 import { desktopDemensions } from "../../config/demensions";
 import NewElement from "../new-timeline-element/NewElementDesktop";
 import useTimeline from "./useTimeline";
+import { global } from "../../config/colors";
 
 const StyledMain = styled.main`
   width: 100vw;
@@ -14,6 +15,22 @@ const StyledMain = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  animation-duration: 1s;
+  animation-name: appear;
+
+  button[title="Download"] {
+    margin-bottom: 50px;
+  }
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 const StyledCaptureZone = styled.div`
   width: 100vw;
@@ -21,6 +38,7 @@ const StyledCaptureZone = styled.div`
   height: auto;
   padding: 10px 0;
   overflow: scroll;
+  z-index: 1;
 `;
 
 function Timeline() {

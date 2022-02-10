@@ -6,7 +6,6 @@ import TextInput from "../text-input/TextInputDesktop";
 import useElement from "./useElement";
 
 const StyledElement = styled.div`
-  width: fit-content;
   max-width: 100%;
   min-height: 250px;
   height: fit-content;
@@ -51,13 +50,13 @@ const StyledElement = styled.div`
     top: 30px;
     left: -45px;
     transform: translate(-25%, -75%);
-    animation-name: buttonAppear;
+    animation-name: appear;
     animation-duration: 1s;
   }
   button[title="Edit"],
   button[title="Confirm"] {
     margin: 20px;
-    animation-name: buttonAppear;
+    animation-name: appear;
     animation-duration: 1s;
   }
 
@@ -85,7 +84,7 @@ const StyledElement = styled.div`
     word-break: break-word;
   }
 
-  @keyframes buttonAppear {
+  @keyframes appear {
     from {
       opacity: 0;
     }

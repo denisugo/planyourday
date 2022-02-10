@@ -4,8 +4,7 @@ import { desktopDemensions } from "../../config/demensions";
 
 const StyledFooter = styled.footer`
   height: 100px;
-  width: 100%;
-  min-width: ${desktopDemensions.minScreenWidth};
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;

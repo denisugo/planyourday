@@ -6,7 +6,6 @@ import { desktopDemensions } from "../../config/demensions";
 
 const StyledHeader = styled.header`
   width: 100%;
-  min-width: ${desktopDemensions.minScreenWidth};
   background-color: ${header.background};
   display: flex;
   flex-direction: column;

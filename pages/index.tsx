@@ -5,7 +5,6 @@ import AppHead from "../components/head";
 import Timeline from "../components/timeline";
 
 const Home: NextPage<{ isMobile: boolean }> = ({ isMobile }) => {
-  //TODO: add icon
   return (
     <div>
       <AppHead />
@@ -13,9 +12,9 @@ const Home: NextPage<{ isMobile: boolean }> = ({ isMobile }) => {
 
       <Timeline isMobile={isMobile} />
 
-      <div>Google ads vertical banners</div>
+      {/* <div>Google ads vertical banners</div>
       <div>video</div>
-      <div>Google ads sticky banner</div>
+      <div>Google ads sticky banner</div> */}
       <AppFooter isMobile={isMobile} />
     </div>
   );

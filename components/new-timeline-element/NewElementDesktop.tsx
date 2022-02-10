@@ -8,12 +8,13 @@ import { StyledContainer } from "../timeline-container/ContainerDesktop";
 import useNewElement from "./useNewElement";
 
 const StyledNewElementContainer = styled.div`
-  width: ${desktopDemensions.minScreenWidth};
+  /* min-width: ${desktopDemensions.minScreenWidth}; */
+  max-width: 100%;
+  z-index: 1;
+  overflow-x: scroll;
 `;
 
 const StyledNewElement = styled.div`
-  min-width: 250px;
-  width: fit-content;
   max-width: 100%;
   min-height: 250px;
   height: fit-content;
@@ -36,7 +37,6 @@ const StyledNewElement = styled.div`
     left: -12px;
     width: 30px;
     height: 30px;
-    background: #999;
     transform: rotate(45deg) translate(-25%, -50%);
     box-shadow: 0 0 5px ${cardElement.shadow};
     background-color: ${cardElement.background};
@@ -50,7 +50,6 @@ const StyledNewElement = styled.div`
     left: -12px;
     width: 30px;
     height: 30px;
-    background: #999;
     transform: rotate(45deg) translate(-25%, -50%);
     background-color: ${cardElement.background};
   }
@@ -85,6 +84,7 @@ const StyledDate = styled.div`
 const StyledHint = styled.h2`
   padding: 10px;
   text-align: center;
+  width: 100%;
 `;
 
 export interface IItem {

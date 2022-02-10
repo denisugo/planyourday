@@ -9,12 +9,11 @@ import useNewElement from "./useNewElement";
 
 const StyledNewElementContainer = styled.div`
   width: ${mobileDemensions.minScreenWidth};
-  max-width: ${mobileDemensions.maxScreenWidth};
   overflow-x: scroll;
+  z-index: 1;
 `;
 
 const StyledNewElement = styled.div`
-  /* min-width: 250px; */
   width: fit-content;
   max-width: 100%;
   min-height: 250px;
@@ -87,6 +86,7 @@ const StyledDate = styled.div`
 const StyledHint = styled.h2`
   padding: 10px;
   text-align: center;
+  width: 100%;
 `;
 
 export interface IItem {

@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { global } from "../../config/colors";
+import { global, header } from "../../config/colors";
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -7,11 +7,14 @@ export const GlobalStyle = createGlobalStyle`
 
 html{
     height: 100%;
+    background-color: ${header.background}
 }
 
 body{
     margin: 0;
-    height: 100%;
+    width: 100vw;
+    overflow-x: scroll;
+    height: auto;
     box-sizing: border-box;
     background-color: ${global.background};
     font-family: 'Lato', sans-serif;
@@ -19,6 +22,6 @@ body{
 
 #root{
     height: 100%;
-    font-family: 'Roboto', sans-serif;
+   
 }
 `;

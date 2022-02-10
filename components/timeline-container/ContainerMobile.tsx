@@ -3,7 +3,6 @@ import { cardElement } from "../../config/colors";
 import Element, { IItem } from "../timeline-element/ElementMobile";
 
 export const StyledContainer = styled.div`
-  max-width: fit-content;
   display: grid;
   grid-auto-flow: row;
   grid-auto-rows: auto;
