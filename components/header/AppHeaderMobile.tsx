@@ -2,53 +2,93 @@ import styled from "styled-components";
 import { BiTimeFive } from "react-icons/bi";
 
 import { global, header } from "../../config/colors";
+import { mobileDemensions } from "../../config/demensions";
 
 const StyledHeader = styled.header`
   width: 100%;
+  min-width: ${mobileDemensions.minScreenWidth};
   background-color: ${header.background};
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
+  position: relative;
+
+  & :after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    bottom: 0;
+    transform: translate(0, 50%);
+    z-index: 10;
+    display: block;
+    background: ${global.background};
+  }
 
   h1 {
+    width: 100%;
     margin: 0;
     padding: 20px;
     color: ${header.heading};
-    font-size: 3rem;
+    font-size: 3.5rem;
     align-self: center;
     display: flex;
     align-items: center;
+    justify-content: center;
+
+    animation-duration: 2s;
+    animation-name: appear;
 
     span {
       font-size: 4rem;
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       svg {
         filter: drop-shadow(0 2px 3px ${header.shadow});
       }
     }
   }
 
-  svg {
+  & > svg {
+    align-self: center;
+    width: 101%;
     margin: 0;
     padding: 0;
     display: block;
     filter: url(#shadow);
   }
+
   p {
     padding: 15px;
     align-self: center;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     color: ${header.quote};
+
+    animation-duration: 4s;
+    animation-name: appear;
     q {
       font-style: italic;
     }
   }
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
-function AppHeaderMobile() {
+function AppHeader() {
   return (
     <StyledHeader>
       <h1>
-        {"Don't waste your  "}{" "}
+        {"Plan your  "}{" "}
         <span>
           <BiTimeFive textRendering={"time"} />
         </span>
@@ -57,7 +97,7 @@ function AppHeaderMobile() {
         <q>Let our advance worrying become advance thinking and planning.</q>
         <span> - Winston Churchill</span>
       </p>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 310">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1439 319">
         <filter id="shadow" colorInterpolationFilters="sRGB">
           <feOffset dx="0" dy="2" />
 
@@ -88,4 +128,4 @@ function AppHeaderMobile() {
   );
 }
 
-export default AppHeaderMobile;
+export default AppHeader;

@@ -1,7 +1,11 @@
 import dynamic from "next/dynamic";
 
-const MobileComponent = dynamic(() => import("./AppFooterMobile"));
-const DesktopComponent = dynamic(() => import("./AppFooterDesktop"));
+const MobileComponent = dynamic(() => import("./AppFooterMobile"), {
+  ssr: true,
+});
+const DesktopComponent = dynamic(() => import("./AppFooterDesktop"), {
+  ssr: true,
+});
 
 function index({ isMobile }: { isMobile: boolean }) {
   return (

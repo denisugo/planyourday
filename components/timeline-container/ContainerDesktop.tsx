@@ -1,13 +1,15 @@
 import styled from "styled-components";
+import { cardElement } from "../../config/colors";
 import Element, { IItem } from "../timeline-element/ElementDesktop";
-const StyledContainer = styled.div`
+
+export const StyledContainer = styled.div`
   max-width: 80%;
   display: grid;
   grid-auto-flow: row;
   grid-auto-rows: auto;
   grid-template-columns: 1fr;
-  margin: 30px 10px 30px 160px;
-  border-left: 2px solid black;
+  margin: 30px 10px 30px 105px;
+  border-left: 2px solid ${cardElement.line};
 `;
 
 interface IConainer {
@@ -16,7 +18,7 @@ interface IConainer {
   onEdit: (item: IItem) => void;
 }
 
-function ContainerDesktop({ items, onRemove, onEdit }: IConainer) {
+function Container({ items, onRemove, onEdit }: IConainer) {
   return (
     <StyledContainer>
       {items.map((item) => (
@@ -34,4 +36,4 @@ function ContainerDesktop({ items, onRemove, onEdit }: IConainer) {
   );
 }
 
-export default ContainerDesktop;
+export default Container;

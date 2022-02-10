@@ -4,6 +4,6 @@ import AppHeader from "../AppHeaderDesktop";
 test("renders desktop header", () => {
   render(<AppHeader />);
 
-  screen.getByText(/Don't waste your/i);
+  screen.getByText(/Plan your/i);
   screen.getByText(/Churchill/i);
 });

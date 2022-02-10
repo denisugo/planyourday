@@ -9,7 +9,7 @@ beforeAll(async () => {
 it("renders footer", () => {
   render(<Home isMobile={false} />);
 
-  screen.getByText(/Don't waste your/i);
+  screen.getByText(/Plan your/i);
   screen.getByText(/Churchill/i);
   screen.getByText(/Powered by/i);
   // expect(3).toBe(3);

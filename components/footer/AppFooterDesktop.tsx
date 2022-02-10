@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { footer } from "../../config/colors";
 import { desktopDemensions } from "../../config/demensions";
@@ -24,7 +23,7 @@ function AppFooter() {
   return (
     <StyledFooter>
       <p>
-        Powered by <span> Denis</span>🙃
+        Powered by <span> Denis</span>🙃 2022
       </p>
     </StyledFooter>
   );

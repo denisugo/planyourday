@@ -7,7 +7,7 @@ describe("Timeline", () => {
   });
   it("renders timeline", () => {
     const titles = screen.getAllByText(/Title/i);
-    expect(titles.length).toBe(4);
+    expect(titles.length).toBe(5);
   });
 
   it("should delete one element", async () => {
@@ -18,7 +18,7 @@ describe("Timeline", () => {
     fireEvent.click(deleteButton);
 
     const titles = await screen.findAllByText(/Title/i);
-    expect(titles.length).toBe(3);
+    expect(titles.length).toBe(4);
   });
 
   it("should update title", async () => {
@@ -28,7 +28,10 @@ describe("Timeline", () => {
 
     fireEvent.click(editButton);
 
-    const titleInput = await screen.findByRole("textbox", { name: /title/i });
+    // ? Should get the first element, the second element is in new element form
+    const titleInput = (
+      await screen.findAllByRole("textbox", { name: /title/i })
+    )[0];
 
     fireEvent.change(titleInput, {
       target: { innerHTML: "New Title" },
@@ -49,9 +52,12 @@ describe("Timeline", () => {
 
     fireEvent.click(editButton);
 
-    const titleInput = await screen.findByRole("textbox", { name: /text/i });
+    // ? Should get the first element, the second element is in new element form
+    const textInput = (
+      await screen.findAllByRole("textbox", { name: /text/i })
+    )[0];
 
-    fireEvent.change(titleInput, {
+    fireEvent.change(textInput, {
       target: { innerHTML: "New Text after alll" },
     });
 
@@ -70,9 +76,12 @@ describe("Timeline", () => {
 
     fireEvent.click(editButton);
 
-    const titleInput = await screen.findByRole("textbox", { name: /date/i });
+    // ? Should get the first element, the second element is in new element form
+    const dateInput = (
+      await screen.findAllByRole("textbox", { name: /date/i })
+    )[0];
 
-    fireEvent.change(titleInput, {
+    fireEvent.change(dateInput, {
       target: { innerHTML: "13 Nov 1998" },
     });
 
@@ -83,5 +92,33 @@ describe("Timeline", () => {
     fireEvent.click(confirmButton);
 
     await screen.findByText(/13 Nov 1998/i);
+  });
+
+  it("should add an element", async () => {
+    const titleInput = screen.getByRole("textbox", { name: /Title/i });
+
+    fireEvent.change(titleInput, {
+      target: { innerHTML: "This is newly added title" },
+    });
+
+    const dateInput = screen.getByRole("textbox", { name: /date/i });
+    fireEvent.change(dateInput, {
+      target: { innerHTML: "20 Nov 2022" },
+    });
+
+    const textInput = screen.getByRole("textbox", {
+      name: /text/i,
+    });
+    fireEvent.change(textInput, {
+      target: { innerHTML: "This is newly added text" },
+    });
+
+    const addButton = screen.getByRole("button", { name: /add/i });
+
+    fireEvent.click(addButton);
+
+    screen.getByText(/This is newly added text/i);
+    screen.getByText(/This is newly added title/i);
+    screen.getByText(/20 Nov 2022/i);
   });
 });

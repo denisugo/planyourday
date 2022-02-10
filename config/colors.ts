@@ -16,6 +16,7 @@ export const cardElement = {
   heading: "#000",
   shadow: "#000",
   circleBackground: "#EB8D11",
+  line: "#000",
 };
 
 export const deleteButton = {

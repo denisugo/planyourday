@@ -11,7 +11,7 @@ const StyledHeader = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow-x: hidden;
+  overflow: hidden;
   position: relative;
 
   & :after {
@@ -27,6 +27,7 @@ const StyledHeader = styled.header`
   }
 
   h1 {
+    width: 100%;
     margin: 0;
     padding: 20px;
     color: ${header.heading};
@@ -36,8 +37,12 @@ const StyledHeader = styled.header`
     align-items: center;
     justify-content: center;
 
+    animation-duration: 2s;
+    animation-name: appear;
+
     span {
       font-size: 4rem;
+      margin-left: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -61,17 +66,29 @@ const StyledHeader = styled.header`
     align-self: center;
     font-size: 1.5rem;
     color: ${header.quote};
+
+    animation-duration: 4s;
+    animation-name: appear;
     q {
       font-style: italic;
     }
   }
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
-function AppHeaderDesktop() {
+function AppHeader() {
   return (
     <StyledHeader>
       <h1>
-        {"Don't waste your  "}{" "}
+        {"Plan your  "}{" "}
         <span>
           <BiTimeFive textRendering={"time"} />
         </span>
@@ -111,4 +128,4 @@ function AppHeaderDesktop() {
   );
 }
 
-export default AppHeaderDesktop;
+export default AppHeader;

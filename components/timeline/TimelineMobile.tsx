@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
-import AppTimeline from "../timeline-container/ContainerDesktop";
+import AppTimeline from "../timeline-container/ContainerMobile";
 import Button from "../button/Button";
-import { desktopDemensions } from "../../config/demensions";
-import NewElement from "../new-timeline-element/NewElementDesktop";
+import { mobileDemensions } from "../../config/demensions";
+import NewElement from "../new-timeline-element/NewElementMobile";
 import useTimeline from "./useTimeline";
 
 const StyledMain = styled.main`
-  width: 100%;
-  min-width: ${desktopDemensions.minScreenWidth};
+  width: 100vw;
+  /* min-width: ${mobileDemensions.minScreenWidth}; */
   height: auto;
   display: flex;
   flex-direction: column;
@@ -16,10 +16,11 @@ const StyledMain = styled.main`
   align-items: center;
 `;
 const StyledCaptureZone = styled.div`
-  width: ${desktopDemensions.minScreenWidth};
+  width: 100vw;
+  max-width: ${mobileDemensions.maxScreenWidth};
   height: auto;
   padding: 10px 0;
-  overflow: scroll;
+  overflow-x: scroll;
 `;
 
 function Timeline() {

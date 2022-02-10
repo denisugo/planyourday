@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { cardElement } from "../../config/colors";
 import Button from "../button/Button";
 import DeleteButton from "../delete-button/DeleteButton";
 import TextInput from "../text-input/TextInputDesktop";
+import useElement from "./useElement";
 
 const StyledElement = styled.div`
   min-width: 250px;
@@ -54,10 +54,14 @@ const StyledElement = styled.div`
     top: 30px;
     left: -45px;
     transform: translate(-25%, -75%);
+    animation-name: buttonAppear;
+    animation-duration: 1s;
   }
   button[title="Edit"],
   button[title="Confirm"] {
     margin: 20px;
+    animation-name: buttonAppear;
+    animation-duration: 1s;
   }
 
   h2 {
@@ -83,6 +87,15 @@ const StyledElement = styled.div`
     word-wrap: break-word;
     word-break: break-word;
   }
+
+  @keyframes buttonAppear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 const StyledCircle = styled.div`
@@ -106,19 +119,6 @@ const StyledDate = styled.div`
   transform: translate(0, -50%);
   display: flex;
 `;
-// ? This is util function that converts array of texts
-// ? Into single line string value
-const multilineToSingleLine = (
-  nodes: NodeListOf<ChildNode>,
-  child: number = 0
-): string => {
-  if (!nodes[child]) return "";
-
-  const value = String(nodes[child].textContent);
-
-  if (value === "null") return multilineToSingleLine(nodes, child + 1);
-  return value + " " + multilineToSingleLine(nodes, child + 1);
-};
 
 export interface IItem {
   id: number;
@@ -131,35 +131,22 @@ export interface IElementInternal extends IItem {
   onEdit: (item: IItem) => void;
 }
 
-function ElementDesktop({
-  title,
-  text,
-  date,
-  id,
-  onRemove,
-  onEdit,
-}: IElementInternal) {
-  const [visible, setVisible] = useState(false);
-  const [visibleButtons, setVisibleButtons] = useState(false);
-  const titleRef = useRef<HTMLSpanElement>(null);
-  const textRef = useRef<HTMLSpanElement>(null);
-  const dateRef = useRef<HTMLSpanElement>(null);
-
-  const handleEditBlocksVisible = () => {
-    setVisible(true);
-  };
-
-  const handleLConfirm = () => {
-    setVisibleButtons(false);
-    setVisible(false);
-    onEdit({
-      id,
-      text: multilineToSingleLine(textRef.current!.childNodes),
-      title: multilineToSingleLine(titleRef.current!.childNodes),
-      date: multilineToSingleLine(dateRef.current!.childNodes),
-    });
-  };
-
+function Element(props: IElementInternal) {
+  const {
+    handleLConfirm,
+    handleEditBlocksVisible,
+    onRemove,
+    visible,
+    visibleButtons,
+    setVisibleButtons,
+    titleRef,
+    textRef,
+    dateRef,
+    text,
+    title,
+    date,
+    id,
+  } = useElement(props);
   return (
     <StyledElement
       onMouseOver={() => setVisibleButtons(true)}
@@ -198,4 +185,4 @@ function ElementDesktop({
   );
 }
 
-export default ElementDesktop;
+export default Element;
