@@ -8,12 +8,12 @@ import useTimeline from "./useTimeline";
 
 const StyledMain = styled.main`
   width: 100vw;
-  /* min-width: ${mobileDemensions.minScreenWidth}; */
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-x: visible;
 `;
 const StyledCaptureZone = styled.div`
   width: 100vw;
@@ -31,7 +31,7 @@ function Timeline() {
     handleEdit,
     handleAdd,
     handleRemove,
-  } = useTimeline();
+  } = useTimeline(true);
 
   return (
     <>

@@ -7,8 +7,8 @@ import NewElement from "../new-timeline-element/NewElementDesktop";
 import useTimeline from "./useTimeline";
 
 const StyledMain = styled.main`
-  width: 100%;
-  min-width: ${desktopDemensions.minScreenWidth};
+  width: 100vw;
+  /* min-width: ${desktopDemensions.minScreenWidth}; */
   height: auto;
   display: flex;
   flex-direction: column;
@@ -16,7 +16,8 @@ const StyledMain = styled.main`
   align-items: center;
 `;
 const StyledCaptureZone = styled.div`
-  width: ${desktopDemensions.minScreenWidth};
+  width: 100vw;
+  max-width: ${desktopDemensions.minScreenWidth};
   height: auto;
   padding: 10px 0;
   overflow: scroll;

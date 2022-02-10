@@ -6,7 +6,6 @@ import TextInput from "../text-input/TextInputDesktop";
 import useElement from "./useElement";
 
 const StyledElement = styled.div`
-  min-width: 250px;
   width: fit-content;
   max-width: 100%;
   min-height: 250px;
@@ -30,7 +29,6 @@ const StyledElement = styled.div`
     left: -12px;
     width: 30px;
     height: 30px;
-    background: #999;
     transform: rotate(45deg) translate(-25%, -50%);
     box-shadow: 0 0 5px ${cardElement.shadow};
     background-color: ${cardElement.background};
@@ -44,7 +42,6 @@ const StyledElement = styled.div`
     left: -12px;
     width: 30px;
     height: 30px;
-    background: #999;
     transform: rotate(45deg) translate(-25%, -50%);
     background-color: ${cardElement.background};
   }

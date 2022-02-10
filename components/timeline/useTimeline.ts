@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { toPng } from "html-to-image";
 
 import { IItem } from "../timeline-element/ElementDesktop";
+import { desktopDemensions } from "../../config/demensions";
 
 // ? This function will create a download link and click it
 const download = (image: string) => {
@@ -29,7 +30,7 @@ const sortItems = (items: IItem[]): IItem[] => {
   });
 };
 
-function useTimeline() {
+function useTimeline(isMobile = false) {
   const [items, setItems] = useState<IItem[]>([
     {
       id: 1,
@@ -59,8 +60,18 @@ function useTimeline() {
 
   const timelineRef = useRef<HTMLDivElement>(null);
 
-  const handleDownload = () =>
-    takeScreenshot(timelineRef.current).then(download);
+  // ? This function will also set and reset captured object width
+  // ? It is needed when a screen is too slim.
+  const handleDownload = async () => {
+    timelineRef.current!.style.width = "500px";
+
+    const image = await takeScreenshot(timelineRef.current);
+    download(image);
+
+    timelineRef.current!.style.width = isMobile
+      ? "100vw"
+      : desktopDemensions.minScreenWidth;
+  };
 
   const handleEdit = (item: IItem) => {
     const oldItems = items.filter(({ id }) => item.id !== id);
