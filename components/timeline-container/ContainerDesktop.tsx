@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { cardElement } from "../../config/colors";
-import Element, { IItem } from "../timeline-element/ElementDesktop";
+import Element from "../timeline-element/ElementDesktop";
+import { IItem } from "../timeline-element/useElement";
 
 export const StyledContainer = styled.div`
   display: grid;
@@ -27,6 +28,7 @@ function Container({ items, onRemove, onEdit }: IConainer) {
           title={item.title}
           text={item.text}
           date={item.date}
+          imageUri={item.imageUri}
           onRemove={onRemove}
           onEdit={onEdit}
         />

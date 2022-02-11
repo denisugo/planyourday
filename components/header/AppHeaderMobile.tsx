@@ -7,12 +7,16 @@ import { mobileDemensions } from "../../config/demensions";
 const StyledHeader = styled.header`
   width: 100%;
   min-width: ${mobileDemensions.minScreenWidth};
-  background-color: ${header.background};
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
   position: relative;
+  background-image: linear-gradient(
+    120deg,
+    ${header.background} 0%,
+    ${header.backgroundSecondary} 100%
+  );
 
   & :after {
     content: "";
@@ -58,7 +62,6 @@ const StyledHeader = styled.header`
     margin: 0;
     padding: 0;
     display: block;
-    filter: url(#shadow);
   }
 
   p {
@@ -98,26 +101,7 @@ function AppHeader() {
         <span> - Winston Churchill</span>
       </p>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1439 319">
-        <filter id="shadow" colorInterpolationFilters="sRGB">
-          <feOffset dx="0" dy="2" />
-
-          <feGaussianBlur stdDeviation="1" result="offset-blur" />
-
-          <feComposite
-            operator="out"
-            in="SourceGraphic"
-            in2="offset-blur"
-            result="inverse"
-          />
-
-          <feFlood
-            floodColor={header.shadow}
-            floodOpacity=".4"
-            result="color"
-          />
-          <feComposite operator="in" in="color" in2="inverse" result="shadow" />
-          <feComposite operator="over" in="shadow" in2="SourceGraphic" />
-        </filter>
+        <filter id="shadow" colorInterpolationFilters="sRGB"></filter>
         <path
           fill={global.background}
           fillOpacity="1"

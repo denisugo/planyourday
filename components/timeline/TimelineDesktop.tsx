@@ -15,6 +15,7 @@ const StyledMain = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-x: scroll;
 
   animation-duration: 1s;
   animation-name: appear;

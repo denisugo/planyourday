@@ -7,7 +7,8 @@ export const GlobalStyle = createGlobalStyle`
 
 html{
     height: 100%;
-    background-color: ${header.background}
+    background-color: ${header.background};
+
 }
 
 body{

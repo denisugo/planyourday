@@ -1,13 +1,17 @@
 import styled from "styled-components";
+import Image from "next/image";
+
 import { cardElement } from "../../config/colors";
 import Button from "../button/Button";
 import DeleteButton from "../delete-button/DeleteButton";
 import TextInput from "../text-input/TextInputDesktop";
-import useElement from "./useElement";
+import useElement, { IElementInternal } from "./useElement";
+import AppImage from "../image/AppImage";
+import ImagePicker from "../image-picker/ImagePicker";
 
 const StyledElement = styled.div`
   max-width: 100%;
-  min-height: 250px;
+  /* min-height: 250px; */
   height: fit-content;
 
   background-color: ${cardElement.background};
@@ -18,11 +22,12 @@ const StyledElement = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   overflow-y: visible;
 
   &::before {
     content: "";
-    position: relative;
+    position: absolute;
     display: block;
     top: 30px;
     left: -12px;
@@ -64,7 +69,7 @@ const StyledElement = styled.div`
     align-self: center;
     filter: drop-shadow(0 0 10px #666);
     padding: 7px 20px;
-    z-index: 1;
+    z-index: 10;
     width: 100%;
     text-align: center;
     word-wrap: break-word;
@@ -116,17 +121,6 @@ const StyledDate = styled.div`
   display: flex;
 `;
 
-export interface IItem {
-  id: number;
-  title: string;
-  text: string;
-  date: string;
-}
-export interface IElementInternal extends IItem {
-  onRemove: (id: number) => void;
-  onEdit: (item: IItem) => void;
-}
-
 function Element(props: IElementInternal) {
   const {
     handleLConfirm,
@@ -135,12 +129,15 @@ function Element(props: IElementInternal) {
     visible,
     visibleButtons,
     setVisibleButtons,
+    setImageUri,
     titleRef,
     textRef,
     dateRef,
+    imgRef,
     text,
     title,
     date,
+    imageUri,
     id,
   } = useElement(props);
   return (
@@ -154,9 +151,20 @@ function Element(props: IElementInternal) {
       )}
       <StyledDate>
         {visible && <TextInput ref={dateRef} value={date} usedFor="date" />}
-
         {!visible && <h3>{date}</h3>}
       </StyledDate>
+
+      {imageUri && <AppImage imageUri={imageUri} />}
+
+      {visible && (
+        <>
+          <ImagePicker callback={setImageUri} customRef={imgRef} />
+          <TextInput ref={titleRef} value={title} usedFor="title" />
+          <TextInput ref={textRef} value={text} usedFor="text" />
+          <Button title="Confirm" usedFor="util" callback={handleLConfirm} />
+        </>
+      )}
+
       {!visible && (
         <>
           <h2>{title}</h2>
@@ -168,13 +176,6 @@ function Element(props: IElementInternal) {
               callback={handleEditBlocksVisible}
             />
           )}
-        </>
-      )}
-      {visible && (
-        <>
-          <TextInput ref={titleRef} value={title} usedFor="title" />
-          <TextInput ref={textRef} value={text} usedFor="text" />
-          <Button title="Confirm" usedFor="util" callback={handleLConfirm} />
         </>
       )}
     </StyledElement>

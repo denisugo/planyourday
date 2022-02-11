@@ -3,7 +3,8 @@ export const global = {
 };
 
 export const header = {
-  background: "#EB8D11",
+  background: "#f6d365",
+  backgroundSecondary: "#fda085",
   heading: "#000",
   quote: "#2b2b2b",
   shadow: "#000",
@@ -15,7 +16,7 @@ export const cardElement = {
   text: "#2b2b2b",
   heading: "#000",
   shadow: "#000",
-  circleBackground: "#EB8D11",
+  circleBackground: "#f6d365",
   line: "#000",
 };
 
@@ -28,7 +29,7 @@ export const deleteButton = {
 
 export const button = {
   text: "#2b2b2b",
-  backgroundUtil: "#EB8D11",
+  backgroundUtil: "#f6d365",
   background: "#3EB9FA",
   hoverOpacity: "dd",
   shadow: "#000",
@@ -43,5 +44,5 @@ export const input = {
 export const footer = {
   background: "#ddd",
   text: "#666",
-  span: "#EB8D11",
+  span: "#3EB9FA",
 };

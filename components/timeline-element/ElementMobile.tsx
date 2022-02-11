@@ -2,8 +2,10 @@ import styled from "styled-components";
 import { cardElement } from "../../config/colors";
 import Button from "../button/Button";
 import DeleteButton from "../delete-button/DeleteButton";
+import ImagePicker from "../image-picker/ImagePicker";
+import AppImage from "../image/AppImage";
 import TextInput from "../text-input/TextInputDesktop";
-import useElement from "./useElement";
+import useElement, { IElementInternal } from "./useElement";
 
 const StyledElement = styled.div`
   max-width: 100%;
@@ -116,17 +118,6 @@ const StyledDate = styled.div`
   display: flex;
 `;
 
-export interface IItem {
-  id: number;
-  title: string;
-  text: string;
-  date: string;
-}
-export interface IElementInternal extends IItem {
-  onRemove: (id: number) => void;
-  onEdit: (item: IItem) => void;
-}
-
 function Element(props: IElementInternal) {
   const {
     handleLConfirm,
@@ -135,12 +126,15 @@ function Element(props: IElementInternal) {
     visible,
     visibleButtons,
     setVisibleButtons,
+    setImageUri,
     titleRef,
     textRef,
     dateRef,
+    imgRef,
     text,
     title,
     date,
+    imageUri,
     id,
   } = useElement(props);
   return (
@@ -152,11 +146,23 @@ function Element(props: IElementInternal) {
       {(visibleButtons || visible) && (
         <DeleteButton callback={() => onRemove(id)} />
       )}
+
       <StyledDate>
         {visible && <TextInput ref={dateRef} value={date} usedFor="date" />}
-
         {!visible && <h3>{date}</h3>}
       </StyledDate>
+
+      {imageUri && <AppImage imageUri={imageUri} />}
+
+      {visible && (
+        <>
+          <ImagePicker callback={setImageUri} customRef={imgRef} />
+          <TextInput ref={titleRef} value={title} usedFor="title" />
+          <TextInput ref={textRef} value={text} usedFor="text" />
+          <Button title="Confirm" usedFor="util" callback={handleLConfirm} />
+        </>
+      )}
+
       {!visible && (
         <>
           <h2>{title}</h2>
@@ -168,13 +174,6 @@ function Element(props: IElementInternal) {
               callback={handleEditBlocksVisible}
             />
           )}
-        </>
-      )}
-      {visible && (
-        <>
-          <TextInput ref={titleRef} value={title} usedFor="title" />
-          <TextInput ref={textRef} value={text} usedFor="text" />
-          <Button title="Confirm" usedFor="util" callback={handleLConfirm} />
         </>
       )}
     </StyledElement>

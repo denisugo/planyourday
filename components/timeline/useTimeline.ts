@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { toPng } from "html-to-image";
 
-import { IItem } from "../timeline-element/ElementDesktop";
+import { IItem } from "../timeline-element/useElement";
 import { desktopDemensions } from "../../config/demensions";
 
 // ? This function will create a download link and click it
@@ -37,24 +37,21 @@ function useTimeline(isMobile = false) {
       title: "Example title #1",
       text: "Here could be some text",
       date: "13 May 1997",
+      imageUri: null,
     },
     {
       id: 3,
       title: "Example title #2",
       text: "Text maecenas consectetur dolor a lectus commodo egestas. Quisque nec dolor ex. Nunc posuere posuere justo ut auctor. Nam consequat erat id augue tristique hendrerit. Donec non tortor vitae turpis posuere eleifend. Sed rutrum sodales sem sed elementum. Nulla molestie suscipit turpis eu finibus. In tincidunt non risus ac tempus.",
       date: "13 May 1997 11:30",
+      imageUri: "/example.jpg",
     },
     {
       id: 4,
       title: "Example title #3",
       text: "Praesent consequat, elit vitae accumsan commodo, nisi neque congue orci, text",
       date: "14 May 1998",
-    },
-    {
-      id: 2,
-      title: "Example title #4",
-      text: "Etiam sed odio quis tortor fermentum pharetratext.",
-      date: "1 Oct 2000",
+      imageUri: "/very_different_name.jpg",
     },
   ]);
 

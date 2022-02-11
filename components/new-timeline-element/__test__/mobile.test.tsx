@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Element from "../NewElementDesktop";
+import Element from "../NewElementMobile";
 
 describe("Timeline New Element", () => {
   const handleAdd = jest.fn();

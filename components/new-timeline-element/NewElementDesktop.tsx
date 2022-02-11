@@ -1,15 +1,20 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled from "styled-components";
+import Image from "next/image";
 import { cardElement } from "../../config/colors";
 import { desktopDemensions } from "../../config/demensions";
 import Button from "../button/Button";
 import TextInput from "../text-input/TextInputDesktop";
 import { StyledContainer } from "../timeline-container/ContainerDesktop";
+import { IItem } from "../timeline-element/useElement";
 import useNewElement from "./useNewElement";
+import AppImage from "../image/AppImage";
+import ImagePicker from "../image-picker/ImagePicker";
 
 const StyledNewElementContainer = styled.div`
-  /* min-width: ${desktopDemensions.minScreenWidth}; */
-  max-width: 100%;
+  max-width: ${desktopDemensions.minScreenWidth};
+  width: 100vw;
+  /* max-width: 100%; */
   z-index: 1;
   overflow-x: scroll;
 `;
@@ -87,18 +92,20 @@ const StyledHint = styled.h2`
   width: 100%;
 `;
 
-export interface IItem {
-  id: number;
-  title: string;
-  text: string;
-  date: string;
-}
 export interface INewElement {
   onAdd: (item: IItem) => void;
 }
 
 function NewElement(props: INewElement) {
-  const { dateRef, textRef, titleRef, handleAdd } = useNewElement(props);
+  const {
+    dateRef,
+    textRef,
+    titleRef,
+    imgRef,
+    imageUri,
+    setImageUri,
+    handleAdd,
+  } = useNewElement(props);
 
   return (
     <StyledNewElementContainer>
@@ -110,6 +117,10 @@ function NewElement(props: INewElement) {
           <StyledDate>
             <TextInput ref={dateRef} value={"13 Oct 2010"} usedFor="date" />
           </StyledDate>
+
+          {imageUri && <AppImage imageUri={imageUri} />}
+
+          <ImagePicker callback={setImageUri} customRef={imgRef} />
 
           <TextInput ref={titleRef} value={"Title"} usedFor="title" />
           <TextInput

@@ -1,13 +1,18 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Timeline from "../TimelineDesktop";
+import Timeline from "../TimelineMobile";
 
 describe("Timeline", () => {
+  const imageFile = new File(["(⌐□_□)"], "chucknorris.png", {
+    type: "image/png",
+  });
+
   beforeEach(() => {
+    global.URL.createObjectURL = jest.fn(() => "/chucknorris.png");
     render(<Timeline />);
   });
   it("renders timeline", () => {
     const titles = screen.getAllByText(/Title/i);
-    expect(titles.length).toBe(5);
+    expect(titles.length).toBe(4);
   });
 
   it("should delete one element", async () => {
@@ -18,7 +23,7 @@ describe("Timeline", () => {
     fireEvent.click(deleteButton);
 
     const titles = await screen.findAllByText(/Title/i);
-    expect(titles.length).toBe(4);
+    expect(titles.length).toBe(3);
   });
 
   it("should update title", async () => {
@@ -76,7 +81,6 @@ describe("Timeline", () => {
 
     fireEvent.click(editButton);
 
-    // ? Should get the first element, the second element is in new element form
     const dateInput = (
       await screen.findAllByRole("textbox", { name: /date/i })
     )[0];
@@ -113,6 +117,11 @@ describe("Timeline", () => {
       target: { innerHTML: "This is newly added text" },
     });
 
+    const fileInput = screen.getByLabelText(/choose image/i);
+    fireEvent.change(fileInput, {
+      target: { files: [imageFile] },
+    });
+
     const addButton = screen.getByRole("button", { name: /add/i });
 
     fireEvent.click(addButton);
@@ -120,5 +129,33 @@ describe("Timeline", () => {
     screen.getByText(/This is newly added text/i);
     screen.getByText(/This is newly added title/i);
     screen.getByText(/20 Nov 2022/i);
+    const images = screen.getAllByRole("img");
+    expect(images.length).toBe(3);
+  });
+
+  it("should update image", async () => {
+    fireEvent.mouseEnter(screen.getByText(/title #3/i));
+
+    const editButton = await screen.findByRole("button", { name: /edit/i });
+
+    fireEvent.click(editButton);
+
+    // ? Should get the first element
+    const fileInput = screen.getAllByLabelText(/choose image/i)[0];
+    fireEvent.change(fileInput, {
+      target: { files: [imageFile] },
+    });
+
+    const confirmButton = await screen.findByRole("button", {
+      name: /confirm/i,
+    });
+
+    fireEvent.click(confirmButton);
+
+    const image = screen.getAllByRole("img")[1];
+    expect(image).toHaveProperty(
+      "src",
+      "http://localhost/_next/image?url=%2Fchucknorris.png&w=3840&q=75"
+    );
   });
 });
